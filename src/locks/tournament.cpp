@@ -6,7 +6,7 @@
  * 2-process lock.
  * */
 
-#include "tournament.h"
+#include "locks/tournament.h"
 
 using namespace std;
 using namespace SCC;
@@ -16,7 +16,7 @@ tournament_lock::tournament_lock() {
 	// Do nothing
 }
 
-tournament_lock::tournament_lock(unsigned int capacity) {
+tournament_lock::tournament_lock(int capacity) {
 	_locks = new pthread_mutex_t[capacity - 1];
 	_num_thrs = capacity;
 	_avai_thrs = 0;
@@ -25,9 +25,9 @@ tournament_lock::tournament_lock(unsigned int capacity) {
 
 tournament_lock::~tournament_lock() {
 	for (int i = 0; i < _avai_thrs; ++i) {
-		pthread_mutex_destroy(&_lock[i]);
+		pthread_mutex_destroy(&_locks[i]);
 	}
-	delete locks;
+	delete [] _locks;
 	pthread_mutex_destroy(&_tid_lock);
 }
 

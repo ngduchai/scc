@@ -5,8 +5,12 @@
 #define SCC	scc
 #define LOCKS	locks
 
-// Data Flow ID
-typedef int SCC::dfid;
+namespace SCC {
+
+	// Data Flow ID
+	typedef int dfid;
+
+}
 
 #endif 
 
